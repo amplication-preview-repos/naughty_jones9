@@ -63,3 +63,12 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
 }
+
+model UploadedFile {
+  createdAt  DateTime  @default(now())
+  fileName   String?
+  fileSize   Int?
+  id         String    @id @default(cuid())
+  updatedAt  DateTime  @updatedAt
+  uploadDate DateTime?
+}

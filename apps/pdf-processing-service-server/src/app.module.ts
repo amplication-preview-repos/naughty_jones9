@@ -4,6 +4,8 @@ import { PdfFileModule } from "./pdfFile/pdfFile.module";
 import { TeacherModule } from "./teacher/teacher.module";
 import { MachineLearningProcessModule } from "./machineLearningProcess/machineLearningProcess.module";
 import { UserModule } from "./user/user.module";
+import { UploadedFileModule } from "./uploadedFile/uploadedFile.module";
+import { FileUploadModule } from "./FileUpload/fileupload.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -28,6 +30,8 @@ import { AuthModule } from "./auth/auth.module";
     TeacherModule,
     MachineLearningProcessModule,
     UserModule,
+    UploadedFileModule,
+    FileUploadModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,
