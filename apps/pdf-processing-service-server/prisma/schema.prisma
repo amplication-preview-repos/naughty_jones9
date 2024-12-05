@@ -1,0 +1,74 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model TextExtractor {
+  cleanedTxtContent        String?
+  createdAt                DateTime                 @default(now())
+  extractedAt              DateTime?
+  id                       String                   @id @default(cuid())
+  machineLearningProcesses MachineLearningProcess[]
+  pdfFile                  PdfFile?                 @relation(fields: [pdfFileId], references: [id])
+  pdfFileId                String?
+  txtContent               String?
+  updatedAt                DateTime                 @updatedAt
+}
+
+model PdfFile {
+  createdAt      DateTime        @default(now())
+  fileName       String?
+  filePath       String?
+  id             String          @id @default(cuid())
+  textExtractors TextExtractor[]
+  updatedAt      DateTime        @updatedAt
+  uploadedAt     DateTime?
+}
+
+model Teacher {
+  createdAt                DateTime                @default(now())
+  id                       String                  @id @default(cuid())
+  machineLearningProcess   MachineLearningProcess? @relation(fields: [machineLearningProcessId], references: [id])
+  machineLearningProcessId String?
+  processedData            Json?
+  readyAt                  DateTime?
+  sharedData               Json?
+  updatedAt                DateTime                @updatedAt
+}
+
+model MachineLearningProcess {
+  createdAt            DateTime       @default(now())
+  extractedInformation Json?
+  id                   String         @id @default(cuid())
+  processedAt          DateTime?
+  requestedInformation String?
+  teachers             Teacher[]
+  textExtractor        TextExtractor? @relation(fields: [textExtractorId], references: [id])
+  textExtractorId      String?
+  updatedAt            DateTime       @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
+
+model UploadedFile {
+  createdAt  DateTime  @default(now())
+  fileName   String?
+  fileSize   Int?
+  id         String    @id @default(cuid())
+  updatedAt  DateTime  @updatedAt
+  uploadDate DateTime?
+}
